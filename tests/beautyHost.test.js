@@ -1,4 +1,7 @@
-const { getBeautyAdvice } = require('../src/beautyHost');
+const {
+  getBeautyAdvice,
+  suggestGifts
+} = require('../src/beautyHost');
 
 // Mock AI service
 class MockAiService {
@@ -18,6 +21,19 @@ describe('getBeautyAdvice', () => {
     const guestPreferences = "I want a serum that brightens skin and reduces wrinkles, but I have sensitive skin.";
 
     const advice = await getBeautyAdvice(mockAiService, productInfo, productReviews, guestPreferences);
+
+    expect(advice).toContain("Ultra Glow Serum");
+    expect(advice).toContain("brightening skin");
+    expect(advice).toContain("may cause irritation for sensitive skin");
+  });
+});
+
+describe('suggestGifts', () => {
+  it('should provide a beauty host recommendation based on a product catalog URL', async () => {
+    const mockAiService = new MockAiService();
+    const productsCatalogUrl = "https://au.loccitane.com";
+
+    const advice = await suggestGifts(mockAiService, productsCatalogUrl);
 
     expect(advice).toContain("Ultra Glow Serum");
     expect(advice).toContain("brightening skin");

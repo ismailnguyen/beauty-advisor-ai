@@ -4,6 +4,18 @@ const OpenAiService = require('../../src/aiServices/openAiService');
 /* The `exports.handler` function is the entry point for the Netlify function. When the 
 function is triggered, this function will be executed. */
 exports.handler = async function (event, context) {
+    if (event.httpMethod == "OPTIONS") {
+        return {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+          },
+        };
+      }
+
+      
     // Parse the body of the event to retrieve the parameters that were passed to the function.
     const {
         openai_api_key,
